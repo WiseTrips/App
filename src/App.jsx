@@ -247,12 +247,6 @@ export default function App() {
   // ── Botão 1: Cotação (interna, com comissões) ────────────────────────
   const gerarPdf = () => {
     const passeiosListados = selecionados.map(s => `<li>${s.nome}</li>`).join("");
-    const passeiosComPdf = selecionados.filter(s => s.temPdf && s.pdf);
-    const linksPasseios = passeiosComPdf.map(s =>
-      `<a href="${s.pdf.replace('/preview','/view')}" target="_blank" class="link-item">
-        <span class="link-nome">${s.nome}</span><span class="link-icon">↗</span>
-      </a>`
-    ).join("");
 
     const html = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"/>
       <title>Cotação Wise Trips${nome ? " — " + nome : ""}</title>
@@ -284,12 +278,6 @@ export default function App() {
         ${simValorParcela !== null ? `<div class="linha"><span class="linha-label">Parcelamento do saldo</span><span class="linha-valor blue">${simParcelasNum}x de R$ ${fmtR(simValorParcela)}</span></div>` : ""}
       </div>
       ${btnImprimir}
-      <div class="section-title">APRESENTAÇÃO DA AGÊNCIA</div>
-      <div class="links-grid">
-        <a href="${PDF_CAPA.replace('/preview','/view')}" target="_blank" class="link-item destaque-link"><span class="link-nome">📄 Capa</span><span class="link-icon">↗</span></a>
-        <a href="${PDF_SOBRE.replace('/preview','/view')}" target="_blank" class="link-item destaque-link"><span class="link-nome">📄 Sobre a Wise Trips</span><span class="link-icon">↗</span></a>
-      </div>
-      ${passeiosComPdf.length > 0 ? `<div class="section-title">DETALHES DOS PASSEIOS</div><div class="links-grid">${linksPasseios}</div>` : ""}
     </body></html>`;
     abrirJanela(html);
   };
