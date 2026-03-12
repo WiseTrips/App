@@ -193,12 +193,11 @@ export default function App() {
     const passeiosComPdf = selecionados.filter(s => s.temPdf && s.pdf);
     const passeiosListados = selecionados.map(s => `<li>${s.nome}</li>`).join("");
 
-    const iframesCapa = `
-      <iframe src="${PDF_CAPA}" class="pdf-frame"></iframe>
-      <iframe src="${PDF_SOBRE}" class="pdf-frame"></iframe>
-    `;
-    const iframesPasseios = passeiosComPdf.map(s =>
-      `<iframe src="${s.pdf}" class="pdf-frame" title="${s.nome}"></iframe>`
+    const linksPasseios = passeiosComPdf.map(s =>
+      `<a href="${s.pdf.replace('/preview', '/view')}" target="_blank" class="link-passeio">
+        <span class="link-nome">${s.nome}</span>
+        <span class="link-icon">↗</span>
+      </a>`
     ).join("");
 
     const html = `<!DOCTYPE html>
@@ -209,8 +208,7 @@ export default function App() {
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Inter, Arial, sans-serif; background: #f8f7f4; color: #1a1207; }
-    .cotacao { max-width: 680px; margin: 0 auto; padding: 36px 40px; background: #fff; }
+    body { font-family: Inter, Arial, sans-serif; background: #fff; color: #1a1207; padding: 36px 40px; max-width: 680px; margin: 0 auto; }
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
     .logo { height: 64px; object-fit: contain; }
     .meta { font-size: 12px; color: #64748b; text-align: right; line-height: 1.6; }
@@ -234,72 +232,101 @@ export default function App() {
     .red { color: #ef4444; }
     .pct { font-size: 11px; color: #94a3b8; margin-left: 5px; font-weight: 400; }
     hr { border: none; border-top: 1px solid #f1f5f9; margin: 8px 0; }
-    .print-btn { text-align: center; margin: 28px 0 40px; }
-    .section-title { font-size: 10px; color: #94a3b8; font-family: monospace; letter-spacing: 2px; text-align: center; margin: 32px 0 16px; }
-    .pdf-frame { width: 100%; height: 90vh; border: none; display: block; margin-bottom: 12px; background: #f1f5f9; }
-    @media print { .print-btn { display: none !important; } }
+    .print-btn { text-align: center; margin: 24px 0 32px; }
+    .section-title { font-size: 9px; color: #94a3b8; font-family: monospace; letter-spacing: 2px; text-align: center; margin: 28px 0 14px; }
+    .links-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
+    .link-passeio {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 16px; border-radius: 8px;
+      border: 1px solid #e2e8f0; text-decoration: none;
+      color: #1a1207; transition: background 0.15s;
+    }
+    .link-passeio:hover { background: #fef9f0; border-color: #D97706; }
+    .link-nome { font-size: 13px; font-weight: 500; }
+    .link-icon { font-size: 14px; color: #D97706; font-weight: 700; }
+    .link-capa {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 16px; border-radius: 8px;
+      border: 1.5px solid #D97706; text-decoration: none;
+      color: #1a1207; margin-bottom: 8px;
+    }
+    .link-capa .link-nome { font-weight: 600; }
+    @media print {
+      .print-btn { display: none !important; }
+      .link-passeio, .link-capa { break-inside: avoid; }
+    }
   </style>
 </head>
 <body>
-  <div class="cotacao">
-    <div class="header">
-      <img src="data:image/png;base64,${logoB64}" class="logo" alt="Wise Trips"/>
-      <div class="meta">
-        ${nome ? `<div><strong>${nome}</strong></div>` : ""}
-        <div>${pax} pessoa${pax > 1 ? "s" : ""} &nbsp;·&nbsp; ${selecionados.length} passeio${selecionados.length > 1 ? "s" : ""}</div>
-      </div>
+  <div class="header">
+    <img src="data:image/png;base64,${logoB64}" class="logo" alt="Wise Trips"/>
+    <div class="meta">
+      ${nome ? `<div><strong>${nome}</strong></div>` : ""}
+      <div>${pax} pessoa${pax > 1 ? "s" : ""} &nbsp;·&nbsp; ${selecionados.length} passeio${selecionados.length > 1 ? "s" : ""}</div>
     </div>
-    <hr class="divider"/>
+  </div>
+  <hr class="divider"/>
 
-    <div class="passeios">
-      <div class="passeios-title">PASSEIOS INCLUÍDOS</div>
-      <ul>${passeiosListados}</ul>
+  <div class="passeios">
+    <div class="passeios-title">PASSEIOS INCLUÍDOS</div>
+    <ul>${passeiosListados}</ul>
+  </div>
+
+  <div class="bloco" style="border-color:#D97706;">
+    <div class="bloco-label">COMPOSIÇÃO DO VALOR</div>
+    <div class="linha">
+      <span class="linha-label">Valor total sem comissão do parceiro</span>
+      <span class="linha-valor orange">R$ ${f(totalComComissao)}</span>
     </div>
-
-    <div class="bloco" style="border-color:#D97706;">
-      <div class="bloco-label">COMPOSIÇÃO DO VALOR</div>
-      <div class="linha">
-        <span class="linha-label">Valor total sem comissão do parceiro</span>
-        <span class="linha-valor orange">R$ ${f(totalComComissao)}</span>
-      </div>
-      <hr/>
-      <div class="linha">
-        <span class="linha-label">Comissão do parceiro<span class="pct">(${parceriaNum}%)</span></span>
-        <span class="linha-valor amber">R$ ${f(totalComComissao * parceriaNum / 100)}</span>
-      </div>
-      <hr/>
-      <div class="linha">
-        <span style="font-size:13px;font-weight:700;color:#1a1207;">Total com comissão do parceiro</span>
-        <span class="destaque orange">R$ ${f(totalComParceria)}</span>
-      </div>
+    <hr/>
+    <div class="linha">
+      <span class="linha-label">Comissão do parceiro<span class="pct">(${parceriaNum}%)</span></span>
+      <span class="linha-valor amber">R$ ${f(totalComComissao * parceriaNum / 100)}</span>
     </div>
-
-    <div class="bloco" style="border-color:#f59e0b;">
-      <div class="bloco-label">RESUMO FINAL PARA COBRANÇA</div>
-      <div class="linha">
-        <span class="linha-label">Valor total com comissões</span>
-        <span class="linha-valor orange">R$ ${f(totalComParceria)}</span>
-      </div>
-      ${taxaTotalWU !== null ? `<div class="linha"><span class="linha-label">Taxa de transferência (Western Union)</span><span class="linha-valor" style="color:#64748b;">R$ ${f(taxaTotalWU)}</span></div>` : ""}
-      ${simJurosTotal !== null ? `<div class="linha"><span class="linha-label">Juros da financiadora (${simParcelasNum}x)</span><span class="linha-valor red">R$ ${f(simJurosTotal)}</span></div>` : ""}
-      <hr/>
-      <div class="linha">
-        <span style="font-size:13px;font-weight:700;color:#1a1207;">Valor total para a cotação</span>
-        <span class="destaque orange">R$ ${f(simValorNum)}</span>
-      </div>
-      ${simValorEntrada !== null ? `<hr/><div class="linha"><span class="linha-label">Entrada<span class="pct">(${simEntradaPctNum}%)</span></span><span class="linha-valor blue">R$ ${f(simValorEntrada)}</span></div>` : ""}
-      ${simValorParcela !== null ? `<div class="linha"><span class="linha-label">Parcelamento do saldo</span><span class="linha-valor blue">${simParcelasNum}x de R$ ${f(simValorParcela)}</span></div>` : ""}
-    </div>
-
-    <div class="print-btn">
-      <button onclick="window.print()" style="background:#D97706;color:#fff;border:none;border-radius:8px;padding:10px 28px;font-size:14px;cursor:pointer;font-family:inherit;font-weight:600;">🖨️ Imprimir / Salvar PDF</button>
+    <hr/>
+    <div class="linha">
+      <span style="font-size:13px;font-weight:700;color:#1a1207;">Total com comissão do parceiro</span>
+      <span class="destaque orange">R$ ${f(totalComParceria)}</span>
     </div>
   </div>
 
-  <div class="section-title">APRESENTAÇÃO DA AGÊNCIA</div>
-  ${iframesCapa}
+  <div class="bloco" style="border-color:#f59e0b;">
+    <div class="bloco-label">RESUMO FINAL PARA COBRANÇA</div>
+    <div class="linha">
+      <span class="linha-label">Valor total com comissões</span>
+      <span class="linha-valor orange">R$ ${f(totalComParceria)}</span>
+    </div>
+    ${taxaTotalWU !== null ? `<div class="linha"><span class="linha-label">Taxa de transferência (Western Union)</span><span class="linha-valor" style="color:#64748b;">R$ ${f(taxaTotalWU)}</span></div>` : ""}
+    ${simJurosTotal !== null ? `<div class="linha"><span class="linha-label">Juros da financiadora (${simParcelasNum}x)</span><span class="linha-valor red">R$ ${f(simJurosTotal)}</span></div>` : ""}
+    <hr/>
+    <div class="linha">
+      <span style="font-size:13px;font-weight:700;color:#1a1207;">Valor total para a cotação</span>
+      <span class="destaque orange">R$ ${f(simValorNum)}</span>
+    </div>
+    ${simValorEntrada !== null ? `<hr/><div class="linha"><span class="linha-label">Entrada<span class="pct">(${simEntradaPctNum}%)</span></span><span class="linha-valor blue">R$ ${f(simValorEntrada)}</span></div>` : ""}
+    ${simValorParcela !== null ? `<div class="linha"><span class="linha-label">Parcelamento do saldo</span><span class="linha-valor blue">${simParcelasNum}x de R$ ${f(simValorParcela)}</span></div>` : ""}
+  </div>
 
-  ${passeiosComPdf.length > 0 ? `<div class="section-title">DETALHES DOS PASSEIOS</div>${iframesPasseios}` : ""}
+  <div class="print-btn">
+    <button onclick="window.print()" style="background:#D97706;color:#fff;border:none;border-radius:8px;padding:10px 28px;font-size:14px;cursor:pointer;font-family:inherit;font-weight:600;">🖨️ Imprimir / Salvar PDF</button>
+  </div>
+
+  <div class="section-title">APRESENTAÇÃO DA AGÊNCIA</div>
+  <div class="links-grid">
+    <a href="${PDF_CAPA.replace('/preview', '/view')}" target="_blank" class="link-capa">
+      <span class="link-nome">📄 Apresentação — Capa</span>
+      <span class="link-icon">↗</span>
+    </a>
+    <a href="${PDF_SOBRE.replace('/preview', '/view')}" target="_blank" class="link-capa">
+      <span class="link-nome">📄 Sobre a Wise Trips</span>
+      <span class="link-icon">↗</span>
+    </a>
+  </div>
+
+  ${passeiosComPdf.length > 0 ? `
+  <div class="section-title">DETALHES DOS PASSEIOS</div>
+  <div class="links-grid">${linksPasseios}</div>
+  ` : ""}
 
 </body>
 </html>`;
