@@ -352,14 +352,15 @@ export default function App() {
         ${cssBase}
         body { background: #2f3640 !important; color: #ffffff !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         .meta strong { color: #ffffff !important; }
-        .bloco { border-color: rgba(255,255,255,0.15) !important; background: rgba(255,255,255,0.05); }
+        .bloco { border-color: rgba(255,255,255,0.15) !important; background: rgba(255,255,255,0.05); -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         .bloco-label { color: #94a3b8 !important; }
         .linha-label { color: #cbd5e1 !important; }
         .linha { border-bottom-color: rgba(255,255,255,0.1) !important; }
         hr { border-color: rgba(255,255,255,0.15) !important; }
         .link-item { color: #ffffff !important; border-color: rgba(255,255,255,0.15) !important; }
-        .orange { color: #D97706 !important; }
+        .orange { color: #D97706 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         .blue { color: #D97706 !important; }
+        .destaque { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
       </style></head><body>
       ${htmlHeader("Cotação Cliente")}
       <p style="font-size:13px;color:#cbd5e1;line-height:1.7;margin-bottom:18px;padding:14px 16px;background:rgba(255,255,255,0.05);border-left:3px solid #D97706;border-radius:0 8px 8px 0;">
@@ -369,13 +370,13 @@ export default function App() {
         <div class="bloco-label">PASSEIOS INCLUÍDOS</div>
         ${passeiosLista}
       </div>
-      <div class="bloco" style="border-color:#D97706;">
-        <div class="bloco-label">VALOR TOTAL DO PACOTE</div>
-        <div style="text-align:center;padding:8px 0;">
-          <span class="destaque orange" style="font-size:32px;">R$ ${fmtR(simValorNum)}</span>
+      <div class="bloco" style="border-color:#D97706;-webkit-print-color-adjust:exact;print-color-adjust:exact;">
+        <div class="bloco-label">VALOR TOTAL DA EXPEDIÇÃO</div>
+        <div style="text-align:center;padding:16px 0 10px;">
+          <span class="destaque orange" style="font-size:42px;font-weight:800;-webkit-print-color-adjust:exact;print-color-adjust:exact;">R$ ${fmtR(simValorNum)}</span>
         </div>
-        ${simValorEntrada !== null ? `<hr/><div class="linha"><span class="linha-label">Entrada<span class="pct">(${simEntradaPctNum}%)</span></span><span class="linha-valor orange" style="color:#D97706;">R$ ${fmtR(simValorEntrada)}</span></div>` : ""}
-        ${simValorParcela !== null ? `<div class="linha"><span class="linha-label">Parcelamento do saldo</span><span class="linha-valor orange" style="color:#D97706;">${simParcelasNum}x de R$ ${fmtR(simValorParcela)}</span></div>` : ""}
+        ${simValorEntrada !== null ? `<hr/><div class="linha"><span class="linha-label">Entrada<span class="pct">(${simEntradaPctNum}%)</span></span><span class="linha-valor orange" style="color:#D97706;-webkit-print-color-adjust:exact;print-color-adjust:exact;">R$ ${fmtR(simValorEntrada)}</span></div>` : ""}
+        ${simValorParcela !== null ? `<div class="linha"><span class="linha-label">Parcelamento do saldo</span><span class="linha-valor orange" style="color:#D97706;-webkit-print-color-adjust:exact;print-color-adjust:exact;">${simParcelasNum}x de R$ ${fmtR(simValorParcela)}</span></div>` : ""}
       </div>
       ${btnImprimir}
 
