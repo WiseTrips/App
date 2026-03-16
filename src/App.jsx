@@ -383,7 +383,7 @@ export default function App() {
         ${simValorParcela !== null ? `<div class="linha"><span class="linha-label">Parcelamento do saldo</span><span class="linha-valor orange" style="color:#D97706;-webkit-print-color-adjust:exact;print-color-adjust:exact;">${simParcelasNum}x de R$ ${fmtR(simValorParcela)}</span></div>` : ""}
       </div>
       <p style="font-size:11px;color:#555555;line-height:1.6;margin-top:-6px;margin-bottom:18px;padding:0 4px;">
-        * Roteiro composto por serviços privativos, com exceção de atividades específicas onde a logística compartilhada é necessária para a operação da experiência.
+        Investimento para a experiência completa, com serviços privativos* e assistência dedicada.
       </p>
 
       <!-- PÁGINA 2 -->
