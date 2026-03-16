@@ -351,14 +351,14 @@ export default function App() {
       <style>
         ${cssBase}
         body { background: #ffffff !important; color: #000000 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-        .meta { color: #000000 !important; }
+        .meta { color: #333333 !important; }
         .meta strong { color: #000000 !important; }
-        .bloco { border-color: rgba(255,255,255,0.15) !important; background: rgba(255,255,255,0.05); -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        .bloco { border-color: #e2e8f0 !important; background: #ffffff !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         .bloco-label { color: #000000 !important; font-size:14px; }
         .linha-label { color: #000000 !important; }
-        .linha { border-bottom-color: rgba(255,255,255,0.1) !important; }
-        hr { border-color: rgba(255,255,255,0.15) !important; }
-        .link-item { color: #000000 !important; border-color: rgba(255,255,255,0.15) !important; }
+        .linha { border-bottom-color: #e2e8f0 !important; }
+        hr { border-color: #e2e8f0 !important; }
+        .link-item { color: #000000 !important; border-color: #e2e8f0 !important; }
         .orange { color: #D97706 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         .blue { color: #D97706 !important; }
         .destaque { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
@@ -366,7 +366,7 @@ export default function App() {
         strong { color: #000000 !important; }
       </style></head><body>
       ${htmlHeader("Cotação Cliente")}
-      <p style="font-size:13px;color:#000000;line-height:1.7;margin-bottom:18px;padding:14px 16px;background:rgba(255,255,255,0.05);border-left:3px solid #D97706;border-radius:0 8px 8px 0;">
+      <p style="font-size:13px;color:#000000;line-height:1.7;margin-bottom:18px;padding:14px 16px;background:#f8f9fa;border-left:3px solid #D97706;border-radius:0 8px 8px 0;">
         Esta cotação foi elaborada de forma personalizada, considerando um roteiro exclusivo, serviços privados e acompanhamento dedicado, conforme o perfil e as expectativas da sua viagem.
       </p>
       <div class="bloco" style="border-color:rgba(255,255,255,0.15);margin-bottom:14px;">
