@@ -246,34 +246,36 @@ export default function App() {
 
   // ── Botão 1: Cotação (interna, com comissões) ────────────────────────
   const gerarPdf = () => {
-    const passeiosListados = selecionados.map(s => `<li>${s.nome}</li>`).join("");
-
     const html = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"/>
       <title>Cotação Wise Trips${nome ? " — " + nome : ""}</title>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-      <style>${cssBase}</style></head><body>
+      <style>
+        ${cssBase}
+        body { color: #000000 !important; }
+        .bloco-label { color: #555555 !important; }
+        .linha-label { color: #000000 !important; }
+        .meta { color: #333333 !important; }
+        .meta strong { color: #000000 !important; }
+      </style></head><body>
       ${htmlHeader("Cotação")}
-      <div class="passeios" style="margin-bottom:20px;">
-        <div style="font-size:9px;color:#64748b;font-family:monospace;letter-spacing:1.5px;margin-bottom:8px;">PASSEIOS INCLUÍDOS</div>
-        <ul style="list-style:none;display:flex;flex-wrap:wrap;gap:4px 20px;">
-          ${selecionados.map(s=>`<li style="font-size:12px;color:#334155;padding-left:10px;position:relative;"><span style="position:absolute;left:0;color:#D97706;">·</span>${s.nome}</li>`).join("")}
-        </ul>
-      </div>
       <div class="bloco" style="border-color:#D97706;">
         <div class="bloco-label">COMPOSIÇÃO DO VALOR</div>
         <div class="linha"><span class="linha-label">Valor total sem comissão do parceiro</span><span class="linha-valor orange">R$ ${fmtR(totalComComissao)}</span></div>
         <hr/>
         <div class="linha"><span class="linha-label">Comissão do parceiro<span class="pct">(${parceriaNum}%)</span></span><span class="linha-valor amber">R$ ${fmtR(totalComComissao * parceriaNum / 100)}</span></div>
         <hr/>
-        <div class="linha"><span style="font-size:13px;font-weight:700;">Total com comissão do parceiro</span><span class="destaque orange">R$ ${fmtR(totalComParceria)}</span></div>
+        <div class="linha"><span style="font-size:13px;font-weight:700;color:#000;">Total com comissão do parceiro</span><span class="destaque orange">R$ ${fmtR(totalComParceria)}</span></div>
       </div>
       <div class="bloco" style="border-color:#f59e0b;">
         <div class="bloco-label">RESUMO FINAL PARA COBRANÇA</div>
         <div class="linha"><span class="linha-label">Valor total com comissões</span><span class="linha-valor orange">R$ ${fmtR(totalComParceria)}</span></div>
-        ${taxaTotalWU !== null ? `<div class="linha"><span class="linha-label">Taxa de transferência (Western Union)</span><span class="linha-valor" style="color:#64748b;">R$ ${fmtR(taxaTotalWU)}</span></div>` : ""}
+        ${taxaTotalWU !== null ? `<div class="linha"><span class="linha-label">Taxa de transferência (Western Union)</span><span class="linha-valor" style="color:#555;">R$ ${fmtR(taxaTotalWU)}</span></div>` : ""}
         ${simJurosTotal !== null ? `<div class="linha"><span class="linha-label">Juros da financiadora (${simParcelasNum}x)</span><span class="linha-valor red">R$ ${fmtR(simJurosTotal)}</span></div>` : ""}
         <hr/>
-        <div class="linha"><span style="font-size:13px;font-weight:700;">Valor total para a cotação</span><span class="destaque orange">R$ ${fmtR(simValorNum)}</span></div>
+        <div style="text-align:center;padding:16px 0 8px;">
+          <div style="font-size:9px;color:#555;font-family:monospace;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;">VALOR TOTAL DA EXPEDIÇÃO</div>
+          <span class="destaque orange" style="font-size:42px;font-weight:800;">R$ ${fmtR(simValorNum)}</span>
+        </div>
         ${simValorEntrada !== null ? `<hr/><div class="linha"><span class="linha-label">Entrada<span class="pct">(${simEntradaPctNum}%)</span></span><span class="linha-valor blue">R$ ${fmtR(simValorEntrada)}</span></div>` : ""}
         ${simValorParcela !== null ? `<div class="linha"><span class="linha-label">Parcelamento do saldo</span><span class="linha-valor blue">${simParcelasNum}x de R$ ${fmtR(simValorParcela)}</span></div>` : ""}
       </div>
@@ -402,11 +404,6 @@ export default function App() {
           <p style="font-size:13px;color:#cbd5e1;line-height:1.7;margin:0;">
             Todo o planejamento é feito de forma personalizada, com orientação antes e durante a experiência no destino, para que sua viagem aconteça com tranquilidade, segurança e aproveitamento máximo.
           </p>
-        </div>
-
-        <div class="bloco" style="border-color:rgba(255,255,255,0.15);margin-bottom:14px;">
-          <div class="bloco-label" style="margin-bottom:12px;">📋 O ORÇAMENTO INCLUI</div>
-          ${passeiosLista}
         </div>
 
         ${btnImprimir}
