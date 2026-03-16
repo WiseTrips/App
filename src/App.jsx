@@ -337,28 +337,43 @@ export default function App() {
   // ── Botão 3: Cotação Cliente (sem comissões) ─────────────────────────
   const gerarCotacaoCliente = () => {
     const passeiosLista = selecionados.map(s =>
-      `<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #f1f5f9;">
+      `<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
         <span style="color:#D97706;font-size:14px;">·</span>
-        <span style="font-size:13px;color:#334155;">${s.nome}</span>
+        <span style="font-size:13px;color:#e2e8f0;">${s.nome}</span>
       </div>`
     ).join("");
 
     const html = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"/>
       <title>Cotação Wise Trips${nome ? " — " + nome : ""}</title>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-      <style>${cssBase}</style></head><body>
+      <style>
+        ${cssBase}
+        body { background: #2f3640 !important; color: #ffffff !important; }
+        .meta strong { color: #ffffff !important; }
+        .bloco { border-color: rgba(255,255,255,0.15) !important; background: rgba(255,255,255,0.05); }
+        .bloco-label { color: #94a3b8 !important; }
+        .linha-label { color: #cbd5e1 !important; }
+        .linha { border-bottom-color: rgba(255,255,255,0.1) !important; }
+        hr { border-color: rgba(255,255,255,0.15) !important; }
+        .link-item { color: #ffffff !important; border-color: rgba(255,255,255,0.15) !important; }
+        .orange { color: #D97706 !important; }
+        .blue { color: #D97706 !important; }
+      </style></head><body>
       ${htmlHeader("Cotação Cliente")}
-      <div class="bloco" style="border-color:#e2e8f0;margin-bottom:14px;">
+      <p style="font-size:13px;color:#cbd5e1;line-height:1.7;margin-bottom:18px;padding:14px 16px;background:rgba(255,255,255,0.05);border-left:3px solid #D97706;border-radius:0 8px 8px 0;">
+        Esta cotação foi elaborada de forma personalizada, considerando um roteiro exclusivo, serviços privados e acompanhamento dedicado, conforme o perfil e as expectativas da sua viagem.
+      </p>
+      <div class="bloco" style="border-color:rgba(255,255,255,0.15);margin-bottom:14px;">
         <div class="bloco-label">PASSEIOS INCLUÍDOS</div>
         ${passeiosLista}
       </div>
-      <div class="bloco" style="border-color:#f59e0b;">
+      <div class="bloco" style="border-color:#D97706;">
         <div class="bloco-label">VALOR TOTAL DO PACOTE</div>
         <div style="text-align:center;padding:8px 0;">
           <span class="destaque orange" style="font-size:32px;">R$ ${fmtR(simValorNum)}</span>
         </div>
-        ${simValorEntrada !== null ? `<hr/><div class="linha"><span class="linha-label">Entrada<span class="pct">(${simEntradaPctNum}%)</span></span><span class="linha-valor blue">R$ ${fmtR(simValorEntrada)}</span></div>` : ""}
-        ${simValorParcela !== null ? `<div class="linha"><span class="linha-label">Parcelamento do saldo</span><span class="linha-valor blue">${simParcelasNum}x de R$ ${fmtR(simValorParcela)}</span></div>` : ""}
+        ${simValorEntrada !== null ? `<hr/><div class="linha"><span class="linha-label">Entrada<span class="pct">(${simEntradaPctNum}%)</span></span><span class="linha-valor orange" style="color:#D97706;">R$ ${fmtR(simValorEntrada)}</span></div>` : ""}
+        ${simValorParcela !== null ? `<div class="linha"><span class="linha-label">Parcelamento do saldo</span><span class="linha-valor orange" style="color:#D97706;">${simParcelasNum}x de R$ ${fmtR(simValorParcela)}</span></div>` : ""}
       </div>
       ${btnImprimir}
     </body></html>`;
