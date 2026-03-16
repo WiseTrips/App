@@ -348,7 +348,7 @@ export default function App() {
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
       <style>
         ${cssBase}
-        body { background: #2f3640 !important; color: #ffffff !important; }
+        body { background: #2f3640 !important; color: #ffffff !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         .meta strong { color: #ffffff !important; }
         .bloco { border-color: rgba(255,255,255,0.15) !important; background: rgba(255,255,255,0.05); }
         .bloco-label { color: #94a3b8 !important; }
@@ -376,6 +376,42 @@ export default function App() {
         ${simValorParcela !== null ? `<div class="linha"><span class="linha-label">Parcelamento do saldo</span><span class="linha-valor orange" style="color:#D97706;">${simParcelasNum}x de R$ ${fmtR(simValorParcela)}</span></div>` : ""}
       </div>
       ${btnImprimir}
+
+      <!-- PÁGINA 2 -->
+      <div style="page-break-before:always;padding-top:8px;">
+        ${htmlHeader("Cotação Cliente")}
+
+        <div class="bloco" style="border-color:#D97706;margin-bottom:14px;">
+          <div class="bloco-label" style="color:#D97706 !important;font-size:11px;letter-spacing:1.5px;margin-bottom:12px;">⚠ OBSERVAÇÃO IMPORTANTE</div>
+          <p style="font-size:13px;color:#cbd5e1;line-height:1.7;margin:0 0 12px;">
+            Os valores apresentados são calculados com base na cotação vigente na data da elaboração deste orçamento.
+          </p>
+          <p style="font-size:13px;color:#cbd5e1;line-height:1.7;margin:0 0 12px;">
+            Considerando que o câmbio é flutuante e pode sofrer variações diárias, o valor final poderá ser ajustado até o momento da confirmação da reserva e efetivação do pagamento.
+          </p>
+          <p style="font-size:13px;color:#cbd5e1;line-height:1.7;margin:0;">
+            <strong style="color:#ffffff;">Serviços privados*:</strong> alguns serviços podem ser compartilhados quando a operação local não permite modalidade privada, identificados em cada passeio que segue esta cotação.
+          </p>
+        </div>
+
+        <div class="bloco" style="border-color:rgba(255,255,255,0.15);margin-bottom:14px;">
+          <div class="bloco-label" style="margin-bottom:12px;">🤝 ACOMPANHAMENTO WISE TRIPS</div>
+          <p style="font-size:13px;color:#cbd5e1;line-height:1.7;margin:0 0 12px;">
+            Após a confirmação da reserva, você contará com suporte e acompanhamento dedicados, relacionados exclusivamente à sua experiência.
+          </p>
+          <p style="font-size:13px;color:#cbd5e1;line-height:1.7;margin:0;">
+            Todo o planejamento é feito de forma personalizada, com orientação antes e durante a experiência no destino, para que sua viagem aconteça com tranquilidade, segurança e aproveitamento máximo.
+          </p>
+        </div>
+
+        <div class="bloco" style="border-color:rgba(255,255,255,0.15);margin-bottom:14px;">
+          <div class="bloco-label" style="margin-bottom:12px;">📋 O ORÇAMENTO INCLUI</div>
+          ${passeiosLista}
+        </div>
+
+        ${btnImprimir}
+      </div>
+
     </body></html>`;
     abrirJanela(html);
   };
