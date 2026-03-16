@@ -341,7 +341,7 @@ export default function App() {
     const passeiosLista = selecionados.map(s =>
       `<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1);">
         <span style="color:#D97706;font-size:14px;">·</span>
-        <span style="font-size:13px;color:#e2e8f0;">${s.nome}</span>
+        <span style="font-size:13px;color:#000000;">${s.nome}</span>
       </div>`
     ).join("");
 
@@ -350,20 +350,23 @@ export default function App() {
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
       <style>
         ${cssBase}
-        body { background: #2f3640 !important; color: #ffffff !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-        .meta strong { color: #ffffff !important; }
+        body { background: #2f3640 !important; color: #000000 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        .meta { color: #000000 !important; }
+        .meta strong { color: #000000 !important; }
         .bloco { border-color: rgba(255,255,255,0.15) !important; background: rgba(255,255,255,0.05); -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-        .bloco-label { color: #94a3b8 !important; }
-        .linha-label { color: #cbd5e1 !important; }
+        .bloco-label { color: #000000 !important; font-size:14px; }
+        .linha-label { color: #000000 !important; }
         .linha { border-bottom-color: rgba(255,255,255,0.1) !important; }
         hr { border-color: rgba(255,255,255,0.15) !important; }
-        .link-item { color: #ffffff !important; border-color: rgba(255,255,255,0.15) !important; }
+        .link-item { color: #000000 !important; border-color: rgba(255,255,255,0.15) !important; }
         .orange { color: #D97706 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         .blue { color: #D97706 !important; }
         .destaque { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        p { color: #000000 !important; }
+        strong { color: #000000 !important; }
       </style></head><body>
       ${htmlHeader("Cotação Cliente")}
-      <p style="font-size:13px;color:#cbd5e1;line-height:1.7;margin-bottom:18px;padding:14px 16px;background:rgba(255,255,255,0.05);border-left:3px solid #D97706;border-radius:0 8px 8px 0;">
+      <p style="font-size:13px;color:#000000;line-height:1.7;margin-bottom:18px;padding:14px 16px;background:rgba(255,255,255,0.05);border-left:3px solid #D97706;border-radius:0 8px 8px 0;">
         Esta cotação foi elaborada de forma personalizada, considerando um roteiro exclusivo, serviços privados e acompanhamento dedicado, conforme o perfil e as expectativas da sua viagem.
       </p>
       <div class="bloco" style="border-color:rgba(255,255,255,0.15);margin-bottom:14px;">
@@ -371,7 +374,7 @@ export default function App() {
         ${passeiosLista}
       </div>
       <div class="bloco" style="border-color:#D97706;-webkit-print-color-adjust:exact;print-color-adjust:exact;">
-        <div class="bloco-label">VALOR TOTAL DA EXPEDIÇÃO</div>
+        <div class="bloco-label" style="font-size:14px;">VALOR TOTAL DA EXPEDIÇÃO</div>
         <div style="text-align:center;padding:16px 0 10px;">
           <span class="destaque orange" style="font-size:42px;font-weight:800;-webkit-print-color-adjust:exact;print-color-adjust:exact;">R$ ${fmtR(simValorNum)}</span>
         </div>
@@ -386,23 +389,23 @@ export default function App() {
 
         <div class="bloco" style="border-color:#D97706;margin-bottom:14px;">
           <div class="bloco-label" style="color:#D97706 !important;font-size:11px;letter-spacing:1.5px;margin-bottom:12px;">⚠ OBSERVAÇÃO IMPORTANTE</div>
-          <p style="font-size:13px;color:#cbd5e1;line-height:1.7;margin:0 0 12px;">
+          <p style="font-size:13px;color:#000000;line-height:1.7;margin:0 0 12px;">
             Os valores apresentados são calculados com base na cotação vigente na data da elaboração deste orçamento.
           </p>
-          <p style="font-size:13px;color:#cbd5e1;line-height:1.7;margin:0 0 12px;">
+          <p style="font-size:13px;color:#000000;line-height:1.7;margin:0 0 12px;">
             Considerando que o câmbio é flutuante e pode sofrer variações diárias, o valor final poderá ser ajustado até o momento da confirmação da reserva e efetivação do pagamento.
           </p>
-          <p style="font-size:13px;color:#cbd5e1;line-height:1.7;margin:0;">
-            <strong style="color:#ffffff;">Serviços privados*:</strong> alguns serviços podem ser compartilhados quando a operação local não permite modalidade privada, identificados em cada passeio que segue esta cotação.
+          <p style="font-size:13px;color:#000000;line-height:1.7;margin:0;">
+            <strong style="color:#000000;">Serviços privados*:</strong> alguns serviços podem ser compartilhados quando a operação local não permite modalidade privada, identificados em cada passeio que segue esta cotação.
           </p>
         </div>
 
         <div class="bloco" style="border-color:rgba(255,255,255,0.15);margin-bottom:14px;">
           <div class="bloco-label" style="margin-bottom:12px;">🤝 ACOMPANHAMENTO WISE TRIPS</div>
-          <p style="font-size:13px;color:#cbd5e1;line-height:1.7;margin:0 0 12px;">
+          <p style="font-size:13px;color:#000000;line-height:1.7;margin:0 0 12px;">
             Após a confirmação da reserva, você contará com suporte e acompanhamento dedicados, relacionados exclusivamente à sua experiência.
           </p>
-          <p style="font-size:13px;color:#cbd5e1;line-height:1.7;margin:0;">
+          <p style="font-size:13px;color:#000000;line-height:1.7;margin:0;">
             Todo o planejamento é feito de forma personalizada, com orientação antes e durante a experiência no destino, para que sua viagem aconteça com tranquilidade, segurança e aproveitamento máximo.
           </p>
         </div>
