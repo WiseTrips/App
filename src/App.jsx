@@ -364,6 +364,7 @@ export default function App() {
         .destaque { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         p { color: #000000 !important; }
         strong { color: #000000 !important; }
+        .pct { color: #000000 !important; }
       </style></head><body>
       ${htmlHeader("Cotação Cliente")}
       <p style="font-size:13px;color:#000000;line-height:1.7;margin-bottom:18px;padding:14px 16px;background:#f8f9fa;border-left:3px solid #D97706;border-radius:0 8px 8px 0;">
@@ -381,14 +382,13 @@ export default function App() {
         ${simValorEntrada !== null ? `<hr/><div class="linha"><span class="linha-label">Entrada<span class="pct">(${simEntradaPctNum}%)</span></span><span class="linha-valor orange" style="color:#D97706;-webkit-print-color-adjust:exact;print-color-adjust:exact;">R$ ${fmtR(simValorEntrada)}</span></div>` : ""}
         ${simValorParcela !== null ? `<div class="linha"><span class="linha-label">Parcelamento do saldo</span><span class="linha-valor orange" style="color:#D97706;-webkit-print-color-adjust:exact;print-color-adjust:exact;">${simParcelasNum}x de R$ ${fmtR(simValorParcela)}</span></div>` : ""}
       </div>
-      ${btnImprimir}
 
       <!-- PÁGINA 2 -->
       <div style="page-break-before:always;padding-top:8px;">
         ${htmlHeader("Cotação Cliente")}
 
         <div class="bloco" style="border-color:#D97706;margin-bottom:14px;">
-          <div class="bloco-label" style="color:#D97706 !important;font-size:11px;letter-spacing:1.5px;margin-bottom:12px;">⚠ OBSERVAÇÃO IMPORTANTE</div>
+          <div class="bloco-label" style="color:#D97706 !important;margin-bottom:12px;">⚠ OBSERVAÇÃO IMPORTANTE</div>
           <p style="font-size:13px;color:#000000;line-height:1.7;margin:0 0 12px;">
             Os valores apresentados são calculados com base na cotação vigente na data da elaboração deste orçamento.
           </p>
