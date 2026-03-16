@@ -371,7 +371,7 @@ export default function App() {
         Esta cotação foi elaborada de forma personalizada, considerando um roteiro exclusivo, serviços privados e acompanhamento dedicado, conforme o perfil e as expectativas da sua viagem.
       </p>
       <div class="bloco" style="border-color:rgba(255,255,255,0.15);margin-bottom:14px;">
-        <div class="bloco-label">PASSEIOS INCLUÍDOS</div>
+        <div class="bloco-label">O QUE ESTÁ INCLUÍDO NA EXPEDIÇÃO</div>
         ${passeiosLista}
       </div>
       <div class="bloco" style="border-color:#D97706;-webkit-print-color-adjust:exact;print-color-adjust:exact;">
@@ -382,6 +382,9 @@ export default function App() {
         ${simValorEntrada !== null ? `<hr/><div class="linha"><span class="linha-label">Entrada<span class="pct">(${simEntradaPctNum}%)</span></span><span class="linha-valor orange" style="color:#D97706;-webkit-print-color-adjust:exact;print-color-adjust:exact;">R$ ${fmtR(simValorEntrada)}</span></div>` : ""}
         ${simValorParcela !== null ? `<div class="linha"><span class="linha-label">Parcelamento do saldo</span><span class="linha-valor orange" style="color:#D97706;-webkit-print-color-adjust:exact;print-color-adjust:exact;">${simParcelasNum}x de R$ ${fmtR(simValorParcela)}</span></div>` : ""}
       </div>
+      <p style="font-size:11px;color:#555555;line-height:1.6;margin-top:-6px;margin-bottom:18px;padding:0 4px;">
+        * Roteiro composto por serviços privativos, com exceção de atividades específicas onde a logística compartilhada é necessária para a operação da experiência.
+      </p>
 
       <!-- PÁGINA 2 -->
       <div style="page-break-before:always;padding-top:8px;">
