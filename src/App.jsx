@@ -350,7 +350,7 @@ export default function App() {
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
       <style>
         ${cssBase}
-        body { background: #2f3640 !important; color: #000000 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        body { background: #ffffff !important; color: #000000 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         .meta { color: #000000 !important; }
         .meta strong { color: #000000 !important; }
         .bloco { border-color: rgba(255,255,255,0.15) !important; background: rgba(255,255,255,0.05); -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
